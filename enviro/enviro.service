@@ -1,0 +1,18 @@
+
+[Unit]
+Description=Enviro Bonnet Display and Cloud Logging Service
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/enviro_bonnet/enviro
+User=pi
+Group=pi
+ExecStartPre=/bin/sleep 10
+ExecStart=/usr/bin/python3 -u envirobonnet2.py --upload_delay 10
+TimeoutStopSec=120
+
+
+[Install]
+WantedBy=multi-user.target
