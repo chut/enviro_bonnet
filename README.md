@@ -6,28 +6,27 @@ The AIY image already has most of the dependencies installed. This is an easy pl
 
 1. Download the AIY Image available from [here](https://drive.google.com/corp/drive/u/0/folders/1u66FKftzIi0d3KTf-cfEc7Ybu51N8-o3).
 2. Flash this to your SD Card (8gb or larger). A good tool for this is [Etcher](https://etcher.io/) on Mac or just `dd` on Linux. 
-3. Boot up your Raspberry Pi and either SSH in or use a keyboard, monitor, and mouse. The AIY image does provide a GUI interface but you won’t need it to get this working. The AIY image use the default login credentials.
+3. Boot up your Raspberry Pi and either SSH in or use a keyboard, monitor, and mouse. The AIY image does provide a GUI interface but you won’t need it to get this working. The AIY image uses the default login credentials.
 	- Username: pi
 	- Password: raspberry
 
 
 ### Setup the libraries
-Most of the libraries are installed with the AIY image. But we will run pip install anyway.
+Most of the libraries are already installed with the AIY image. But we will run pip install anyway.
 
-1. Navigate to the AIY projects directoory.
-`cd /home/pi/AIY-projects-python/src`
+1. Navigate to the AIY projects directoory. Run `cd /home/pi/AIY-projects-python/src`
 2. Run `sudo pip3 install .`
 
 ## Configure the Enviro Bonnet Examples
-There is a sample script for printing sensor data on the OLED and connecting the IoT Core using the crypto chip. There are also some sample helper scripts for setting up your system.
+There is a sample script for printing sensor data on the OLED and connecting to IoT Core using the crypto chip. There are also some sample helper scripts for setting up this demo.
 
 ### Get the Code
-1. Download or clone the sample code and helper scripts from [Github](https://github.com/chut/enviro_bonnet) to your home folder (`/home/pi`). *Note: You can clone it other places, but you will have to account for that in other places in the tutorial and modify the later scirpts.*
+1. Download or clone the sample code and helper scripts from [Github](https://github.com/chut/enviro_bonnet) to your home folder (`/home/pi`). *Note: You can clone it other places, but you will have to account for that in other places in this tutorial and modify some of the later scirpts.*
 
 ### Configure for IoT Core
-This tutorial assumes you are familiar with the basics of IoT Core. If you need help setting up a project and registry, see the IoT Core docs.
+This tutorial assumes you are familiar with the basics of IoT Core. If you need help setting up a project and registry, see the IoT Core [Quickstart](https://cloud.google.com/iot/docs/quickstart).
 
-1. Open the `enviro_bonnet/enviro/my_config.ini` file in an editor and put in your corresponding, `ProjectID`, `CloudRegion`, and `RegistryID`.
+1. Open the `enviro_bonnet/enviro/my_config.ini` file in an editor and put in your corresponding, `ProjectID`, `CloudRegion`, and `RegistryID` from your IoT Core project.
 2. Choose an ID for your device or enter one you have already setup as `DeviceID`. If you are using an already created device, you will still have to add the public key in the next step.
 3. Leave `RSACertFile` blank, where we're going, we don’t need certs!
 
@@ -47,15 +46,16 @@ MFkwEwYHKoZIzj0CAEYIKoZIzj0DAQcDQgAENvRyrDgkwx7KbcM5Q9OP3vYPc9cp2fCdfil9r5pnXZgi
 -----END PUBLIC KEY-----
 ```
 
-4. Just copy the key, starting with `-----BEGIN PUBLIC KEY-----` and ending with `-----END PUBLIC KEY-----`
+4. Only copy the key, starting with `-----BEGIN PUBLIC KEY-----` and ending with `-----END PUBLIC KEY-----`
 5. Keep it in clipboard or copy it somewhere, you will need it in the next step.
 
 
 #### Create your device in IoT Core
-1. Go to [IoT Core](https://pantheon.corp.google.com/iot) and select the respective project and registry you selected earlier.
-2. Hit add device, under Device ID, use the same value you put as `DeviceID` in `my_config.ini` or make something up and put that value in `my_config.ini` as described in "Configure for IoT Core"
-3. Select `ES256` as the "Public key format". (Note: Do NOT select `ES256_X509`)
-4. Now copy and paste the public key from the previous step into the "Public key value" box. Including the lines at the beginning and end.
+1. Go to [IoT Core](https://pantheon.corp.google.com/iot) and select the respective project and registry you specified earlier.
+2. Hit "Add Device"
+3. For "Device ID", use the same value you put as `DeviceID` in `my_config.ini` or make something up and put that value in `my_config.ini` as described in "Configure for IoT Core"
+4. Select `ES256` as the "Public key format". (Note: Do NOT select `ES256_X509`)
+5. Now copy and paste the public key from the previous step into the "Public key value" box. Including the lines at the beginning and end.
 
 ## Try it out
 You should now be able to run the example code from the Github repo you cloned earlier!
@@ -63,12 +63,12 @@ You should now be able to run the example code from the Github repo you cloned e
 ### Start the script
 For testing, we want to pass a few extra options to the script, to see if its all working.
 
-1. If not already, `cd /home/pi/enviro_bonnet/enviro`
+1. If not already in our working directory, `cd /home/pi/enviro_bonnet/enviro`
 2. Run `python3 envirobonnet2.py --print-output --upload_delay 10`
-.. These extra options will show the output on the terminal, in addition to the OLED as well as configure the data to be sent to IoT Core every 10 seconds (default is every 5min).
+	- These extra options will show the output on the terminal, in addition to the OLED, as well as configure the data to be sent to IoT Core every 10 seconds (default is every 5min).
 3. You should see the OLED come to life on the device. You should see IP, temp, light, and pressure data scrolling by.
 4. Your terminal should be displaying similar data
-5. You should also see `Message sent Cloud {EXAMPLE}` every 10 seconds.
+5. You should also see `Message sent Cloud {EXAMPLE}` every 10 seconds in the terminal.
 
 
 ### See Data in Pub/Sub
@@ -101,3 +101,4 @@ If you want the Enviro Bonnet to be used all the time, you can configure the scr
 5. Now as long as your device has power and internet you get secure connectivity. 
 
 
+Thats all, thanks for looking. Reach out to calumbarnes@ if you have any questions!
