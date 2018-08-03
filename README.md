@@ -64,7 +64,7 @@ You should now be able to run the example code from the Github repo you cloned e
 For testing, we want to pass a few extra options to the script, to see if its all working.
 
 1. If not already in our working directory, `cd /home/pi/enviro_bonnet/enviro`
-2. Run `python3 envirobonnet2.py --print-output --upload_delay 10`
+2. Run `python3 envirobonnet2.py --print_output --upload_delay 10`
 	- These extra options will show the output on the terminal, in addition to the OLED, as well as configure the data to be sent to IoT Core every 10 seconds (default is every 5min).
 3. You should see the OLED come to life on the device. You should see IP, temp, light, and pressure data scrolling by.
 4. Your terminal should be displaying similar data
