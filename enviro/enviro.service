@@ -9,9 +9,10 @@ Type=simple
 WorkingDirectory=/home/pi/enviro_bonnet/enviro
 User=pi
 Group=pi
-ExecStartPre=/bin/sleep 10
+ExecStartPre=/bin/sleep 15
 ExecStart=/usr/bin/python3 -u envirobonnet2.py --upload_delay 10
 TimeoutStopSec=120
+Restart=always
 
 
 [Install]
